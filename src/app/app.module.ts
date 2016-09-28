@@ -6,20 +6,35 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { RouterModule, Routes } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy, APP_BASE_HREF } from '@angular/common';
 
-import { SpotifyService } from './shared/spotify.service';
+import { SPOTIFY_PROVIDERS } from './shared/spotify.service';
 
 import { AppComponent } from './app.component';
+import { SearchComponent } from './search/search.component';
+
+const routes: Routes = [
+  { path: '', redirectTo: 'search', pathMatch: 'full' },
+  { path: 'search', component: SearchComponent },
+  //{ path: 'artists/:id', component: ArtistComponent },
+  //{ path: 'tracks/:id', component: TrackComponent },
+  //{ path: 'albums/:id', component: AlbumComponent },
+];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot(routes)
   ],
-  providers: [SpotifyService],
+  providers: [
+    SPOTIFY_PROVIDERS,
+    { provide: APP_BASE_HREF, useValue: '/' },
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

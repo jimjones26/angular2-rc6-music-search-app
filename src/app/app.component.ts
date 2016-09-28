@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
 
-/*
- * Webpack
- */
-require('../styles.scss');
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
